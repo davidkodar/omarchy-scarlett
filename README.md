@@ -17,11 +17,12 @@ Multiple matching devices at startup are refused rather than chosen arbitrarily.
 - Runtime: `alsa-lib`, `json-c`; Omarchy supplies Quickshell and its QML components.
 - Build: a C compiler, `make`, and `pkgconf` (Arch's `base-devel` provides these).
 - Tests: Python 3.
-- Optional: `alsa-scarlett-gui` from Arch Extra for **Open ALSA Scarlett Control Panel**.
-  This button opens the app or focuses its existing window. If the app is
-  absent, the button is hidden; all four native controls still work.
+
 
 No new kernel driver, root service, PipeWire filter, or GUI fork is involved.
+ALSA Scarlett Control Panel is not required and has no launcher in the plugin.
+It remains an optional standalone tool for firmware maintenance and features
+this plugin does not implement.
 
 ## Build and install
 

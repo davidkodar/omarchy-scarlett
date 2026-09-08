@@ -43,3 +43,10 @@ application remains optional; the native controls use ALSA directly.
   persistence is enabled. No persistence or 48V write was performed.
 - Expanded read-only QML preview loaded successfully after using the Qt
   version's supported accessibility properties.
+
+## Standalone UI
+
+Removed the external control-panel launcher, installation check and launch timer.
+The native controls have no dependency on that application. This does not imply
+feature parity: firmware maintenance, configuration files, simulation and other
+interface models remain outside the current plugin.

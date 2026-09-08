@@ -75,21 +75,6 @@ Panel {
             helper.running = false
         }
     }
-    // Let the popup release its keyboard grab before focusing another window.
-    Timer {
-        id: advancedLaunch
-        interval: 180
-        onTriggered: Quickshell.execDetached([
-            "omarchy", "launch", "or-focus", "^vu[.]b4[.]alsa-scarlett-gui$",
-            "uwsm-app -- alsa-scarlett-gui"
-        ])
-    }
-    Process {
-        id: advancedCheck
-        command: ["/usr/bin/test", "-x", "/usr/bin/alsa-scarlett-gui"]
-        running: true
-        onExited: (exitCode, exitStatus) => advanced.visible = exitCode === 0
-    }
     BarIconButton {
         id: button
         anchors.fill: parent
@@ -258,14 +243,7 @@ Panel {
                             Accessible.name: "Remember 48V state at power-on"
                         }
                     }
-                    Button {
-                        id: advanced
-                        visible: false
-                        width: parent.width
-                        text: "Open ALSA Scarlett Control Panel"
-                        focusable: true
-                        onClicked: { root.close(); advancedLaunch.restart() }
-                    }
+
                 }
             }
         }
