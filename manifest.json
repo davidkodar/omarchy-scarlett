@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "davidkodar.scarlett",
+  "name": "Scarlett",
+  "version": "0.1.0",
+  "author": "davidkodar",
+  "description": "Air, instrument mode, phantom power and direct monitoring for Scarlett Solo",
+  "kinds": ["bar-widget"],
+  "entryPoints": { "barWidget": "Panel.qml" },
+  "barWidget": {
+    "displayName": "Scarlett",
+    "category": "Audio",
+    "allowMultiple": false,
+    "defaultSection": "right"
+  }
+}
