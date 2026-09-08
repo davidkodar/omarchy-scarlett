@@ -1,4 +1,4 @@
-# Solo preview release readiness
+# Release readiness — Scarlett Solo (3rd Gen.)
 
 Repository stays private until the owner explicitly approves publication.
 The first release is scoped to Scarlett Solo (3rd Gen.) USB `1235:8211`, not all Focusrite
@@ -37,7 +37,7 @@ rejection. These do not substitute for the remaining checks below.
 
 Follow HARDWARE_TESTING.md when audio interruption is convenient. Do not describe
 unchecked items as passed. These are qualification tasks, not known reproduced
-failures. Until they are resolved, this remains a development preview.
+failures. Any release notes should disclose the remaining coverage limits.
 
 ## Publication steps
 

@@ -1,7 +1,20 @@
-# Development validation — 2026-09-08
+# Validation record — 2026-09-08
 
 Environment: Omarchy 4.0.2, Quickshell 0.3.1, ALSA 1.2.16.1;
 Scarlett Solo (3rd Gen.) USB product 1235:8211.
+
+## Current status
+
+The current build passes all 16 hardware-free tests. The read-only UI checks
+pass, and the full Scarlett Solo (3rd Gen.) name is shown in the interface and
+documentation. The owner confirmed direct monitoring, 48V, Line / Inst, reconnect
+detection, and persistence-on with the local ALSA restore exception.
+See [RELEASE.md](RELEASE.md) for checks still outstanding.
+
+The entries below record development in order; later results supersede earlier
+limitations and describe changes to the interface.
+
+## Initial checks
 
 Passed:
 
@@ -15,9 +28,8 @@ Passed:
 - Installed popup opened through IPC and visually inspected; live values matched
   the existing control panel. No plugin QML errors in the shell log.
 
-No 48V write was performed during these checks. Full state-change, hardware
-button, reconnect and theme-switch tests remain in RELEASE.md. The widget is a
-usable development preview, not yet a validated public release.
+No 48V write was performed during these initial checks. Later owner-confirmed
+hardware tests are recorded below.
 
 ## Interface refinement
 
@@ -29,11 +41,11 @@ usable development preview, not yet a validated public release.
   inspected. The live shell retained cached QML after a rescan, requiring a
   shell restart for the new layout.
 
-## Advanced settings
+## Earlier advanced-settings launcher (since removed)
 
-The button now closes the popup before using Omarchy's launch-or-focus action
-for ALSA Scarlett Control Panel. The user confirmed the action works. This
-application remains optional; the native controls use ALSA directly.
+An earlier version opened an external control panel. The owner confirmed that
+action worked. This launcher was subsequently removed in favor of native Device
+settings; the current plugin uses ALSA directly and requires no separate app.
 
 ## Device settings
 
@@ -93,8 +105,8 @@ the hotplug restore rule and boot/shutdown restore/store service. Other cards
 remain selected. Root ownership/modes, rule syntax, effective service commands,
 and dry-run selection were verified. Existing configuration was backed up under
 /var/backups/omarchy-scarlett-restore-20260908-234011. No mixer state was written.
-Post-fix read-only values matched the pre-fix snapshot. A physical reconnect test
-is still needed to confirm that 48V persistence now behaves as intended.
+Post-fix read-only values matched the pre-fix snapshot. The subsequent physical reconnect test
+is recorded below.
 
 ## Owner confirmation after restore fix
 
