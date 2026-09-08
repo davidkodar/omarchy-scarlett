@@ -95,3 +95,11 @@ and dry-run selection were verified. Existing configuration was backed up under
 /var/backups/omarchy-scarlett-restore-20260908-234011. No mixer state was written.
 Post-fix read-only values matched the pre-fix snapshot. A physical reconnect test
 is still needed to confirm that 48V persistence now behaves as intended.
+
+## Owner confirmation after restore fix
+
+The owner confirmed the requested post-fix test worked: with 48V on and Remember
+48V enabled, disconnecting and reconnecting USB restored the expected on state
+on the physical interface and in the plugin. This validates persistence-on
+behavior on the maintainer's Solo with the local restore exception installed.
+Persistence-off behavior and other devices remain untested by this report.

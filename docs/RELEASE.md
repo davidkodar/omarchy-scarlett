@@ -29,8 +29,9 @@ rejection. These do not substitute for the remaining checks below.
 - [ ] Confirm Air's real on/off changes and that all controls are left in the intended state.
 - [ ] Physical button changes appear promptly in the plugin.
 - [x] Owner confirmed unplug/replug reports unavailable and detects the device again.
-- [ ] Recheck remembered state after the local ALSA restore exception; see VALIDATION.md.
-- [ ] Confirm the 48V startup preference across a deliberate power cycle.
+- [x] Owner confirmed 48V returns on after reconnect with Remember 48V enabled and the local restore exception installed.
+- [x] Owner confirmed persistence-on behavior across USB power disconnection/reconnection.
+- [ ] Check persistence-off behavior separately.
 - [ ] Verify behavior with multiple supported interfaces and access denied.
 - [ ] Complete real multi-monitor and system-theme-switch checks beyond the isolated UI test.
 
