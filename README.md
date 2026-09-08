@@ -18,6 +18,8 @@ Multiple matching devices at startup are refused rather than chosen arbitrarily.
 - Build: a C compiler, `make`, and `pkgconf` (Arch's `base-devel` provides these).
 - Tests: Python 3.
 - Optional: `alsa-scarlett-gui` from Arch Extra for **Advanced settings**.
+  This button opens the app or focuses its existing window. If the app is
+  absent, the button is hidden; all four native controls still work.
 
 No new kernel driver, root service, PipeWire filter, or GUI fork is involved.
 

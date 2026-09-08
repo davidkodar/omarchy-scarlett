@@ -28,3 +28,9 @@ usable development preview, not yet a validated public release.
 - Fresh read-only preview loaded without plugin QML errors and was visually
   inspected. The live shell retained cached QML after a rescan, requiring a
   shell restart for the new layout.
+
+## Advanced settings
+
+The button now closes the popup before using Omarchy's launch-or-focus action
+for ALSA Scarlett Control Panel. The user confirmed the action works. This
+application remains optional; the native controls use ALSA directly.

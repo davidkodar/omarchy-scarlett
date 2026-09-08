@@ -74,6 +74,15 @@ Panel {
             helper.running = false
         }
     }
+    // Let the popup release its keyboard grab before focusing another window.
+    Timer {
+        id: advancedLaunch
+        interval: 180
+        onTriggered: Quickshell.execDetached([
+            "omarchy", "launch", "or-focus", "^vu[.]b4[.]alsa-scarlett-gui$",
+            "uwsm-app -- alsa-scarlett-gui"
+        ])
+    }
     Process {
         id: advancedCheck
         command: ["/usr/bin/test", "-x", "/usr/bin/alsa-scarlett-gui"]
@@ -215,7 +224,7 @@ Panel {
                         width: parent.width
                         text: "Advanced settings  ↗"
                         focusable: true
-                        onClicked: { Quickshell.execDetached(["alsa-scarlett-gui"]); root.close() }
+                        onClicked: { root.close(); advancedLaunch.restart() }
                     }
                 }
             }
