@@ -8,7 +8,9 @@ Scarlett Solo (3rd Gen.) USB product 1235:8211.
 The current build passes all 16 hardware-free tests. The read-only UI checks
 pass, and the full Scarlett Solo (3rd Gen.) name is shown in the interface and
 documentation. The owner confirmed direct monitoring, 48V, Line / Inst, reconnect
-detection, and persistence-on with the local ALSA restore exception.
+detection, and persistence-on with the local ALSA restore exception. The owner
+also confirmed completion of Air on/off, physical-button synchronization, and
+reconnect testing with Remember 48V disabled.
 See [RELEASE.md](RELEASE.md) for checks still outstanding.
 
 The entries below record development in order; later results supersede earlier
@@ -115,3 +117,11 @@ The owner confirmed the requested post-fix test worked: with 48V on and Remember
 on the physical interface and in the plugin. This validates persistence-on
 behavior on the maintainer's Solo with the local restore exception installed.
 Persistence-off behavior and other devices remain untested by this report.
+
+## Owner confirmation of remaining Solo hardware checks
+
+When presented with the three remaining checks, the owner clarified that they
+were already complete: Air on/off, physical-button synchronization, and reconnect
+behavior with Remember 48V disabled. These are recorded as owner-confirmed
+hardware results. They do not establish coverage for additional interfaces or
+untested desktop configurations.

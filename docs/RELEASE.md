@@ -19,19 +19,21 @@ interfaces. See ROADMAP.md for planned expansion.
 - [x] Marketplace publishing requirements checked; see PUBLISHING.md.
 - [x] README distinguishes implemented scope from the multi-device roadmap.
 
-## Hardware checks still requiring participation
+## Owner-confirmed hardware checks
 
-The user reported successful switching reflected in ALSA Scarlett Control Panel.
-The automated live write check verified Air's unchanged value and stale-request
-rejection. These do not substitute for the remaining checks below.
+The owner confirmed the requested hardware checks are complete on the Scarlett
+Solo (3rd Gen.). These are owner-reported results; the automated live write check
+separately verified Air's unchanged value and stale-request rejection.
 
 - [x] Owner confirmed direct monitoring, phantom power (48V), and Line / Inst working.
-- [ ] Confirm Air's real on/off changes and that all controls are left in the intended state.
-- [ ] Physical button changes appear promptly in the plugin.
+- [x] Owner confirmed Air on/off switching.
+- [x] Owner confirmed physical-button changes update the plugin.
 - [x] Owner confirmed unplug/replug reports unavailable and detects the device again.
 - [x] Owner confirmed 48V returns on after reconnect with Remember 48V enabled and the local restore exception installed.
 - [x] Owner confirmed persistence-on behavior across USB power disconnection/reconnection.
-- [ ] Check persistence-off behavior separately.
+- [x] Owner confirmed reconnect behavior with Remember 48V disabled.
+
+## Additional coverage limits
 - [ ] Verify behavior with multiple supported interfaces and access denied.
 - [ ] Complete real multi-monitor and system-theme-switch checks beyond the isolated UI test.
 
