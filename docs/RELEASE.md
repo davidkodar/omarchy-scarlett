@@ -1,6 +1,7 @@
 # Release readiness — Scarlett Solo (3rd Gen.)
 
-Repository stays private until the owner explicitly approves publication.
+The owner approved public visibility, and the repository is now public.
+Marketplace submission remains a separate step.
 The first release is scoped to Scarlett Solo (3rd Gen.) USB `1235:8211`, not all Focusrite
 interfaces. See ROADMAP.md for planned expansion.
 
@@ -43,7 +44,7 @@ failures. Any release notes should disclose the remaining coverage limits.
 
 ## Publication steps
 
-- [ ] Owner approves making the repository public.
+- [x] Owner approved making the repository public; visibility changed and verified.
 - [ ] Review the final source/history, release notes and submission text.
 - [ ] Submit the public repository for listing with manual setup disclosed.
 

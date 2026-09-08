@@ -7,7 +7,7 @@ Checked 2026-09-08 against the official
 The marketplace requires a public GitHub repository with a root manifest,
 README, license, dependency documentation and safe install/removal instructions.
 Preview images are optional. Submissions are reviewed against a specific commit.
-The repository is currently private; no submission has been made.
+The repository is public with owner approval; no marketplace submission has been made.
 
 Suggested listing:
 
@@ -22,6 +22,6 @@ Suggested listing:
 Before submission, check the marketplace for the permanent ID
 `davidkodar.scarlett`, validate the final manifest with `omarchy plugin validate`,
 finish the qualification checklist, and review the official form at that time.
-Show the owner the completed submission and obtain approval before making the
-repository public or sending the marketplace issue. Future-model support belongs
+Show the owner the completed submission and obtain approval before sending the
+marketplace issue. Future-model support belongs
 in the roadmap, not in the initial listing's compatibility claim.
