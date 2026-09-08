@@ -86,8 +86,8 @@ Panel {
         }
         opacity: root.state.connected ? 1 : 0.45
         tooltipText: root.state.connected
-            ? "Scarlett Solo\n" + root.controlStatus("phantom", "48V") + " · " + root.controlStatus("monitor", "Direct monitor")
-            : "Scarlett Solo\nDisconnected"
+            ? "Scarlett Solo (3rd Gen.)\n" + root.controlStatus("phantom", "48V") + " · " + root.controlStatus("monitor", "Direct monitor")
+            : "Scarlett Solo (3rd Gen.)\nDisconnected"
         onPressed: b => { if (b === Qt.LeftButton) root.toggle() }
     }
     onOpenedChanged: {
@@ -250,7 +250,7 @@ Panel {
                         Text {
                             width: parent.width
                             text: root.state.connected
-                                ? (root.state.info?.model || "Scarlett Solo") + " · USB " + (root.state.info?.usb_id || "Unknown")
+                                ? (root.state.info?.model || "Scarlett Solo (3rd Gen.)") + " · USB " + (root.state.info?.usb_id || "Unknown")
                                   + "\nFirmware " + (root.state.info?.firmware ?? "unavailable")
                                 : "Connect your Scarlett to view device information."
                             textFormat: Text.PlainText

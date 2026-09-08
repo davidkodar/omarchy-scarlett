@@ -2,12 +2,12 @@
 
 Direction: grow from Solo quick controls into an Omarchy-native control surface
 for the Focusrite families supported by Linux, reducing the need for a separate
-application as coverage is verified. The maintainer owns a Solo (`1235:8211`);
+application as coverage is verified. The maintainer owns a Scarlett Solo (3rd Gen.) (`1235:8211`);
 help testing other interfaces is warmly welcome.
 
 ## Current scope and priorities
 
-The current implementation targets Scarlett Solo USB `1235:8211`. It provides
+The current implementation targets Scarlett Solo (3rd Gen.) USB `1235:8211`. It provides
 Air, 48V, Line/Inst and direct-monitor controls, plus the 48V startup preference
 and device information. See [validation notes](VALIDATION.md) for the precise
 test coverage; implemented does not mean fully hardware-validated.

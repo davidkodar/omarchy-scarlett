@@ -14,7 +14,7 @@ Suggested listing:
 - Name: Scarlett for Omarchy
 - Category: Hardware
 - Tags: bar, media, quickshell
-- Scope: native quick controls and startup preference for Solo USB 1235:8211.
+- Scope: native quick controls and startup preference for Scarlett Solo (3rd Gen.) USB 1235:8211.
 - Setup: manual setup required after the plugin manager clones the repository;
   run scripts/install.sh to check dependencies, compile and enable. No downloaded
   executable or privileged background service is used.

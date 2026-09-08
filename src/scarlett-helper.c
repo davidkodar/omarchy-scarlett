@@ -26,7 +26,7 @@ static snd_ctl_t *ctl;
 static unsigned generation;
 static char device[128];
 static bool readonly_mode, no_device;
-static const char *discovery_error = "Scarlett Solo disconnected";
+static const char *discovery_error = "Scarlett Solo (3rd Gen.) disconnected";
 
 static void field(json_object *o, const char *k, const char *v) {
     json_object_object_add(o, k, json_object_new_string(v));
@@ -76,7 +76,7 @@ static int read_control(int i, bool *value, bool *writable) {
 static json_object *device_info(void) {
     json_object *o = json_object_new_object();
     if (!ctl) return o;
-    field(o, "model", "Scarlett Solo");
+    field(o, "model", "Scarlett Solo (3rd Gen.)");
     field(o, "usb_id", "1235:8211");
     snd_ctl_elem_info_t *info;
     snd_ctl_elem_value_t *v;
@@ -122,7 +122,7 @@ static void discover(void) {
     if (no_device) return;
     int card = -1, found = 0;
     snd_ctl_t *candidate = NULL;
-    discovery_error = "Scarlett Solo disconnected";
+    discovery_error = "Scarlett Solo (3rd Gen.) disconnected";
     while (snd_card_next(&card) >= 0 && card >= 0) {
         /* Limit v0.1 to the USB product verified on the development device.
          * Other generations must get an explicit profile after testing. */
@@ -154,7 +154,7 @@ static void discover(void) {
         discovery_error = "Cannot subscribe to Scarlett control changes";
         return;
     }
-    snprintf(device, sizeof(device), "Scarlett Solo");
+    snprintf(device, sizeof(device), "Scarlett Solo (3rd Gen.)");
     generation++;
 }
 static void reply(int64_t id, const char *error) {

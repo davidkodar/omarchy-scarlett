@@ -1,4 +1,4 @@
-# Scarlett Solo settings restored by the system
+# Scarlett Solo (3rd Gen.) settings restored by the system
 
 On the maintainer's machine, `/var/lib/alsa/asound.state` held an older Solo
 configuration with phantom power off and phantom-power persistence on. The

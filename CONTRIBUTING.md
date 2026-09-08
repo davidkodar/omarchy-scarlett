@@ -3,7 +3,7 @@
 Feature requests, bug reports, device information, documentation improvements,
 and pull requests are welcome. You do not need to write code to help.
 
-The maintainer tests on a Scarlett Solo (`1235:8211`). Reports and hardware
+The maintainer tests on a Scarlett Solo (3rd Gen.) (`1235:8211`). Reports and hardware
 testing from owners of other Focusrite interfaces will help us expand support
 with confidence. Thanks for helping make the plugin useful to more people.
 

@@ -1,7 +1,7 @@
 # Development validation — 2026-09-08
 
 Environment: Omarchy 4.0.2, Quickshell 0.3.1, ALSA 1.2.16.1;
-Scarlett Solo USB product 1235:8211.
+Scarlett Solo (3rd Gen.) USB product 1235:8211.
 
 Passed:
 

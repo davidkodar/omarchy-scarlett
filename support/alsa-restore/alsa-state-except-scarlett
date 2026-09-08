@@ -15,7 +15,7 @@ for card_path in /proc/asound/card[0-9]*; do
   usb_id=''
   if [[ -r "$card_path/usbid" ]]; then read -r usb_id < "$card_path/usbid"; fi
   if [[ $usb_id == 1235:8211 ]]; then
-    [[ ${2:-} != --dry-run ]] || echo "Skip Scarlett Solo card $number ($usb_id)"
+    [[ ${2:-} != --dry-run ]] || echo "Skip Scarlett Solo (3rd Gen.) card $number ($usb_id)"
     continue
   fi
   if [[ ${2:-} == --dry-run ]]; then

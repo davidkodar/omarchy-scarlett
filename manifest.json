@@ -4,7 +4,7 @@
   "name": "Scarlett",
   "version": "0.1.0",
   "author": "davidkodar",
-  "description": "Air, instrument mode, phantom power and direct monitoring for Scarlett Solo",
+  "description": "Air, instrument mode, phantom power and direct monitoring for Scarlett Solo (3rd Gen.)",
   "kinds": ["bar-widget"],
   "entryPoints": { "barWidget": "Panel.qml" },
   "barWidget": {

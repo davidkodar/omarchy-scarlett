@@ -11,7 +11,7 @@ interface components. No separate control-panel application is required.
 
 ## Built on my Solo, with room for the family
 
-I own a **Scarlett Solo (USB product `1235:8211`)**, and that's the interface I'm
+I own a **Scarlett Solo (3rd Gen.)**, USB product **`1235:8211`**, and that's the interface I'm
 building and testing with. It's the model this plugin currently supports.
 
 I'd love to bring the same native Omarchy experience to the wider Focusrite

@@ -1,7 +1,7 @@
 # Solo preview release readiness
 
 Repository stays private until the owner explicitly approves publication.
-The first release is scoped to Scarlett Solo USB `1235:8211`, not all Focusrite
+The first release is scoped to Scarlett Solo (3rd Gen.) USB `1235:8211`, not all Focusrite
 interfaces. See ROADMAP.md for planned expansion.
 
 ## Completed release preparation
