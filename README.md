@@ -1,7 +1,9 @@
 # Scarlett for Omarchy
 
 Native bar controls for **Air**, **48V**, **Line / Inst**, and **direct monitoring**.
-The panel uses Omarchy's shared components and theme palette. Hardware state
+A distinct audio-interface icon opens a panel grouped by Input 1, Input 2,
+and Monitoring, with explicit Line / Inst buttons. Hover shows 48V and direct
+monitor status. The panel uses Omarchy's shared components and theme palette. Hardware state
 comes directly from ALSA, including updates from the interface's buttons or
 ALSA Scarlett Control Panel.
 
@@ -40,7 +42,8 @@ It does not install system packages or use sudo.
 
 The helper must be compiled **before** enabling the plugin. Omarchy's normal
 plugin installer only clones files; it does not run builds. After updating the
-source, run `make` and `omarchy-shell shell rescanPlugins`. Public distribution
+source, run `make` and `omarchy-shell shell rescanPlugins`. If the shell still
+shows the previous layout, use `omarchy restart shell` to clear cached QML. Public distribution
 packaging remains a release task.
 
 To disable without deleting the source:

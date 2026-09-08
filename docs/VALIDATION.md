@@ -18,3 +18,13 @@ Passed:
 No 48V write was performed during these checks. Full state-change, hardware
 button, reconnect and theme-switch tests remain in RELEASE.md. The widget is a
 usable development preview, not yet a validated public release.
+
+## Interface refinement
+
+- User reported switching controls successfully and observing matching changes
+  in ALSA Scarlett Control Panel. Individual controls were not specified.
+- Added an original vector interface icon, device/status tooltip, input groups,
+  and explicit Line / Inst buttons using Omarchy's themed components.
+- Fresh read-only preview loaded without plugin QML errors and was visually
+  inspected. The live shell retained cached QML after a rescan, requiring a
+  shell restart for the new layout.

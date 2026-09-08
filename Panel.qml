@@ -30,6 +30,10 @@ Panel {
             }
         } catch (e) { error = "Could not read Scarlett state" }
     }
+    function controlStatus(key, label) {
+        const control = state.controls[key]
+        return label + (control ? (control.value ? " on" : " off") : " unavailable")
+    }
     function setControl(key, value) {
         if (pending || !state.connected || !state.controls[key]?.writable) return
         pending = ++sequence
@@ -80,9 +84,13 @@ Panel {
         id: button
         anchors.fill: parent
         bar: root.bar
-        text: "󰋎"
+        iconComponent: Component {
+            InterfaceIcon { foreground: button.foreground }
+        }
         opacity: root.state.connected ? 1 : 0.45
-        tooltipText: root.state.connected ? "Scarlett Solo · " + (root.state.controls.phantom?.value ? "48V on" : "48V off") : "Scarlett disconnected"
+        tooltipText: root.state.connected
+            ? "Scarlett Solo\n" + root.controlStatus("phantom", "48V") + " · " + root.controlStatus("monitor", "Direct monitor")
+            : "Scarlett Solo\nDisconnected"
         onPressed: b => { if (b === Qt.LeftButton) root.toggle() }
     }
     onOpenedChanged: {
@@ -110,7 +118,7 @@ Panel {
                 Column {
                     id: column
                     width: parent.width
-                    spacing: Style.spacing.md
+                    spacing: Style.spacing.lg
                     Text {
                         text: "SCARLETT SOLO"
                         color: Color.foreground
@@ -127,24 +135,78 @@ Panel {
                         font.family: Style.font.family
                         font.pixelSize: Style.font.caption
                     }
-                    Repeater {
-                        model: [
-                            {key: "air", label: "Air", description: "Input 1 · presence"},
-                            {key: "phantom", label: "48V", description: "Input 1 · phantom power"},
-                            {key: "inst", label: "Instrument", description: "Input 2 · Line / Inst"},
-                            {key: "monitor", label: "Direct monitor", description: "Listen to inputs directly"}
-                        ]
+                    Column {
+                        width: parent.width
+                        spacing: Style.spacing.md
+                        PanelSectionHeader { text: "INPUT 1" }
+                        Repeater {
+                            model: [
+                                {key: "air", label: "Air", description: "Presence"},
+                                {key: "phantom", label: "48V", description: "Phantom power"}
+                            ]
+                            Toggle {
+                                required property var modelData
+                                readonly property var control: root.state.controls[modelData.key]
+                                width: column.width
+                                label: modelData.label
+                                description: control ? modelData.description : "Unavailable"
+                                checked: control ? control.value : false
+                                enabled: !!control && control.writable && !root.pending
+                                opacity: control ? 1 : 0.45
+                                onClicked: root.setControl(modelData.key, !checked)
+                                Accessible.name: "Input 1, " + label + ", " + description
+                            }
+                        }
+                    }
+                    Column {
+                        width: parent.width
+                        spacing: Style.spacing.md
+                        PanelSectionHeader { text: "INPUT 2" }
+                        Row {
+                            width: parent.width
+                            spacing: Style.spacing.md
+                            Repeater {
+                                model: ["Line", "Inst"]
+                                Button {
+                                    required property string modelData
+                                    readonly property var control: root.state.controls.inst
+                                    width: (column.width - Style.spacing.md) / 2
+                                    text: modelData
+                                    bordered: true
+                                    focusable: true
+                                    selected: !!control && (control.value === (modelData === "Inst"))
+                                    enabled: !!control && control.writable && !root.pending
+                                    opacity: control ? 1 : 0.45
+                                    onClicked: if (!selected) root.setControl("inst", modelData === "Inst")
+                                    Accessible.role: Accessible.RadioButton
+                                    Accessible.name: "Input 2, " + modelData
+                                    Accessible.checkable: true
+                                    Accessible.checked: selected
+                                }
+                            }
+                        }
+                        Text {
+                            visible: !root.state.controls.inst
+                            text: "Unavailable"
+                            color: Color.muted
+                            font.family: Style.font.family
+                            font.pixelSize: Style.font.caption
+                        }
+                    }
+                    Column {
+                        width: parent.width
+                        spacing: Style.spacing.md
+                        PanelSectionHeader { text: "MONITORING" }
                         Toggle {
-                            required property var modelData
-                            readonly property var control: root.state.controls[modelData.key]
-                            width: column.width
-                            label: modelData.label
-                            description: control ? (modelData.key === "inst" ? "Input 2 · " + (control.value ? "Inst" : "Line") : modelData.description) : "Unavailable"
+                            readonly property var control: root.state.controls.monitor
+                            width: parent.width
+                            label: "Direct monitor"
+                            description: control ? "Listen to inputs directly" : "Unavailable"
                             checked: control ? control.value : false
                             enabled: !!control && control.writable && !root.pending
                             opacity: control ? 1 : 0.45
-                            onClicked: root.setControl(modelData.key, !checked)
-                            Accessible.name: label + ", " + description
+                            onClicked: root.setControl("monitor", !checked)
+                            Accessible.name: label
                         }
                     }
                     Button {
@@ -152,6 +214,7 @@ Panel {
                         visible: false
                         width: parent.width
                         text: "Advanced settings  ↗"
+                        focusable: true
                         onClicked: { Quickshell.execDetached(["alsa-scarlett-gui"]); root.close() }
                     }
                 }
