@@ -4,6 +4,39 @@ Direction: grow from Solo quick controls into an Omarchy-native control surface
 for the Focusrite families supported by Linux, reducing the need for a separate
 control panel as coverage is verified. The repository remains private.
 
+## Current scope and priorities
+
+The current implementation targets Scarlett Solo USB `1235:8211`. It provides
+Air, 48V, Line/Inst and direct-monitor controls, plus the 48V startup preference
+and device information. See [validation notes](VALIDATION.md) for the precise
+test coverage; implemented does not mean fully hardware-validated.
+
+| Priority | Milestone | Status |
+| --- | --- | --- |
+| Next | Separate Device settings view with Back navigation; keep the main popup compact | Planned; currently an expandable section |
+| Next | Reusable device profiles, capability schema and read-only capture tool | Planned |
+| Next | One additional small Scarlett model, with recorded data and hardware validation | Planned; model chosen with contributor input |
+| Later | Broader small Scarlett 3rd/4th generation quick controls | Planned |
+| Later | Larger native window for Scarlett/Clarett routing, mixing, meters and clock settings | Planned |
+| Later | Model-specific features, including Vocaster DSP | Planned |
+| Exploration | Presets, reset operations, firmware updates and recovery | Scope and feasibility not yet established |
+
+The next engineering milestone is the reusable backend plus one additional
+model. Hardware access and contributor requests will help determine sequencing.
+There are no committed release dates. This roadmap describes direction, not
+current compatibility or a promise of universal feature parity.
+
+## Request features or help test
+
+Use [GitHub Issues](https://github.com/davidkodar/omarchy-scarlett/issues/new/choose)
+for feature requests, device-support requests and bugs. Read
+[CONTRIBUTING.md](../CONTRIBUTING.md) for useful details to include, read-only
+device information collection and pull-request guidance. Hardware testing and
+documentation contributions are particularly valuable.
+
+While the repository is private, these channels are available only to people
+with repository access. Publication requires the owner's explicit approval.
+
 ## Architecture
 
 - Keep the bar popup for everyday controls; use a larger native window for

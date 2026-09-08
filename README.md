@@ -11,6 +11,18 @@ ALSA Scarlett Control Panel.
 Scarlett Solo USB product `1235:8211`. Other models are intentionally not selected.
 Multiple matching devices at startup are refused rather than chosen arbitrarily.
 
+## Roadmap and contributions
+
+See the **[development roadmap](docs/ROADMAP.md)** for planned device support,
+native routing/mixer tools and the next milestones. These are planned features,
+not claims of current support or release-date commitments.
+
+**[Request a feature, report a bug, or request device support](https://github.com/davidkodar/omarchy-scarlett/issues/new/choose).**
+Hardware testing, documentation and code contributions are welcome; see
+[CONTRIBUTING.md](CONTRIBUTING.md) for how to help. While the repository remains
+private, only invited collaborators can see it and participate. It will become
+public only with the owner's approval.
+
 ## Requirements
 
 - Omarchy with its Quickshell plugin system (developed against 4.0.2).
