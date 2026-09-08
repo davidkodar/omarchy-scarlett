@@ -70,3 +70,12 @@ interface models remain outside the current plugin.
 - Atomic rebuild test passed: an intentional compiler failure preserved the
   existing binary; a subsequent successful rebuild left the original process
   responsive while replacing its executable on disk.
+
+## User-confirmed Solo control tests
+
+The owner explicitly confirmed testing direct monitoring, phantom power (48V),
+and Line / Inst on the connected Solo. These three controls are now recorded as
+user-confirmed working. The report did not specify physical-button initiation,
+unplug/replug, power-cycle behavior, or restoration of initial settings; those
+checks remain separate. Air's real on/off behavior and Remember 48V persistence
+across power cycles are not established by this report.

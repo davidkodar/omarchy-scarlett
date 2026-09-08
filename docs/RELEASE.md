@@ -25,7 +25,8 @@ The user reported successful switching reflected in ALSA Scarlett Control Panel.
 The automated live write check verified Air's unchanged value and stale-request
 rejection. These do not substitute for the remaining checks below.
 
-- [ ] Record each control's real on/off changes and restoration to the intended state.
+- [x] Owner confirmed direct monitoring, phantom power (48V), and Line / Inst working.
+- [ ] Confirm Air's real on/off changes and that all controls are left in the intended state.
 - [ ] Physical button changes appear promptly in the plugin.
 - [ ] Unplug/replug while the panel is open disables and restores the controls.
 - [ ] Confirm the 48V startup preference across a deliberate power cycle.
