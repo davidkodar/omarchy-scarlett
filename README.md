@@ -1,27 +1,41 @@
 # Scarlett for Omarchy
 
-Native bar controls for **Air**, **48V**, **Line / Inst**, and **direct monitoring**.
-A distinct audio-interface icon opens a panel grouped by Input 1, Input 2,
-and Monitoring, with explicit Line / Inst buttons. Hover shows 48V and direct
-monitor status. The panel uses Omarchy's shared components and theme palette. Hardware state
-comes directly from ALSA, including updates from the interface's buttons or
-ALSA Scarlett Control Panel.
+A small, theme-aware control panel for Focusrite interfaces, right in the
+Omarchy bar. Adjust **Air**, **48V**, **Line / Inst**, and **direct monitoring**
+without leaving your desktop. Less frequent options live in a separate Device
+settings view, keeping everyday controls quick to reach.
 
-**Private development preview — not a public release.** Initially supports the
-Scarlett Solo USB product `1235:8211`. Other models are intentionally not selected.
-Multiple matching devices at startup are refused rather than chosen arbitrarily.
+The plugin talks directly to the hardware controls exposed by Linux through
+ALSA. It follows the device's reported state and uses Omarchy's own theme and
+interface components. No separate control-panel application is required.
 
-## Roadmap and contributions
+## Built on my Solo, with room for the family
 
-See the **[development roadmap](docs/ROADMAP.md)** for planned device support,
-native routing/mixer tools and the next milestones. These are planned features,
-not claims of current support or release-date commitments.
+I own a **Scarlett Solo (USB product `1235:8211`)**, and that's the interface I'm
+building and testing with. It's the model this plugin currently supports.
 
-**[Request a feature, report a bug, or request device support](https://github.com/davidkodar/omarchy-scarlett/issues/new/choose).**
-Hardware testing, documentation and code contributions are welcome; see
-[CONTRIBUTING.md](CONTRIBUTING.md) for how to help. While the repository remains
-private, only invited collaborators can see it and participate. It will become
-public only with the owner's approval.
+I'd love to bring the same native Omarchy experience to the wider Focusrite
+family—Scarlett, Clarett, and Vocaster. I don't have all those interfaces on my
+desk, so help from people who do would make a real difference. If you own another
+model, you're welcome to share which controls matter to you, provide read-only
+device information, or help test a future build. You don't need to write code
+to contribute.
+
+Support will grow model by model, with a clear distinction between features
+we've implemented and behavior someone has verified on real hardware. The
+current Solo implementation doesn't yet select other models or multiple matching
+interfaces at once.
+
+## Help shape what comes next
+
+The **[roadmap](docs/ROADMAP.md)** covers broader device support and future native
+routing and mixer tools. It's a direction we're working toward, not a promise
+that every device or feature is already supported.
+
+Have an idea, a different interface, or something that isn't working as expected?
+**[Open a feature request, device-support request, or bug report](https://github.com/davidkodar/omarchy-scarlett/issues/new/choose).**
+Testing, documentation, design feedback, and code contributions are all welcome.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for a few simple ways to get involved.
 
 ## Requirements
 
@@ -30,11 +44,8 @@ public only with the owner's approval.
 - Build: a C compiler, `make`, and `pkgconf` (Arch's `base-devel` provides these).
 - Tests: Python 3.
 
-
-No new kernel driver, root service, PipeWire filter, or GUI fork is involved.
-ALSA Scarlett Control Panel is not required and has no launcher in the plugin.
-It remains an optional standalone tool for firmware maintenance and features
-this plugin does not implement.
+The plugin uses the existing Linux driver and system ALSA library. It does not
+install another driver, a privileged background service, or an audio filter.
 
 ## Install and update
 
@@ -49,8 +60,8 @@ cd ~/.config/omarchy/plugins/davidkodar.scarlett
 ./scripts/install.sh
 ```
 
-While private, the repository requires GitHub access. If dependencies are
-missing, the installer stops before changing the shell. On Omarchy, install
+If dependencies are missing, the installer stops before changing the shell.
+On Omarchy, install
 `base-devel`, `alsa-lib` and `json-c` using your package manager, then rerun it.
 
 Scarlett is placed after the normal `omarchy.audio` volume widget when that
@@ -110,6 +121,13 @@ The small helper uses `alsa-lib` plus `json-c`, with newline-delimited JSON over
 stdin/stdout. ALSA events drive updates while connected; discovery retries every
 1.5 seconds only when disconnected. Each bar instance owns its helper process.
 
+## Settings after reconnecting
+
+The plugin reads the interface's settings when it reconnects. If those settings
+change unexpectedly, a saved system ALSA configuration may be overriding the
+hardware. See [the Scarlett-specific restore investigation and fix](support/alsa-restore/README.md).
+That system adjustment is separate from normal plugin installation.
+
 ## Validation
 
 `make check` runs eight hardware-free protocol tests and seven installer/removal
@@ -142,13 +160,12 @@ components may evolve between versions.
 
 ## License and attribution
 
-Original plugin and helper code: MIT. No source from `alsa-scarlett-gui` or the
-kernel driver is copied into this repository. Omarchy's shared QML components
+Original plugin and helper code: MIT. The hardware integration is independently
+implemented against ALSA; no kernel driver source is bundled. Omarchy's shared QML components
 are imported from the installed system, not bundled. `alsa-lib` is dynamically
 linked under its LGPL terms; `json-c` uses MIT. These system dependencies retain
 their respective licenses.
 
-Thanks to Geoffrey Bennett and contributors for Linux Focusrite driver support
-and [ALSA Scarlett Control Panel](https://github.com/geoffreybennett/alsa-scarlett-gui),
-and to [Omarchy](https://github.com/basecamp/omarchy) for the shell infrastructure.
+Thanks to Geoffrey Bennett and the Linux audio contributors for Focusrite driver
+support, and to [Omarchy](https://github.com/basecamp/omarchy) for the shell infrastructure.
 This is an independent community project, unaffiliated with Focusrite.

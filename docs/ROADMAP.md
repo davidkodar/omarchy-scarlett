@@ -2,7 +2,8 @@
 
 Direction: grow from Solo quick controls into an Omarchy-native control surface
 for the Focusrite families supported by Linux, reducing the need for a separate
-control panel as coverage is verified. The repository remains private.
+application as coverage is verified. The maintainer owns a Solo (`1235:8211`);
+help testing other interfaces is warmly welcome.
 
 ## Current scope and priorities
 
@@ -33,9 +34,6 @@ for feature requests, device-support requests and bugs. Read
 [CONTRIBUTING.md](../CONTRIBUTING.md) for useful details to include, read-only
 device information collection and pull-request guidance. Hardware testing and
 documentation contributions are particularly valuable.
-
-While the repository is private, these channels are available only to people
-with repository access. Publication requires the owner's explicit approval.
 
 ## Architecture
 
@@ -71,6 +69,5 @@ Before importing upstream demo configurations or code, review their specific
 license and retain attribution; do not assume they can enter the MIT project
 without conditions. Firmware packages and update protocols need separate review.
 
-The full ALSA Scarlett Control Panel remains an optional fallback until feature
-coverage for a particular device is established. No claim of universal support
-is made by the current Solo release.
+Only advertise features verified for a particular device. Broader family support
+is the goal; the current implementation supports the Solo model listed above.

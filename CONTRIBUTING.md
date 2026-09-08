@@ -3,9 +3,9 @@
 Feature requests, bug reports, device information, documentation improvements,
 and pull requests are welcome. You do not need to write code to help.
 
-The repository is currently private: only people with repository access can
-read it or participate. Broader community participation starts after the owner
-approves publication. Do not request or share credentials to gain access.
+The maintainer tests on a Scarlett Solo (`1235:8211`). Reports and hardware
+testing from owners of other Focusrite interfaces will help us expand support
+with confidence. Thanks for helping make the plugin useful to more people.
 
 ## Requests and bugs
 

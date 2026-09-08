@@ -28,7 +28,8 @@ rejection. These do not substitute for the remaining checks below.
 - [x] Owner confirmed direct monitoring, phantom power (48V), and Line / Inst working.
 - [ ] Confirm Air's real on/off changes and that all controls are left in the intended state.
 - [ ] Physical button changes appear promptly in the plugin.
-- [ ] Unplug/replug while the panel is open disables and restores the controls.
+- [x] Owner confirmed unplug/replug reports unavailable and detects the device again.
+- [ ] Recheck remembered state after the local ALSA restore exception; see VALIDATION.md.
 - [ ] Confirm the 48V startup preference across a deliberate power cycle.
 - [ ] Verify behavior with multiple supported interfaces and access denied.
 - [ ] Complete real multi-monitor and system-theme-switch checks beyond the isolated UI test.

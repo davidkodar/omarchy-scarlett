@@ -79,3 +79,19 @@ user-confirmed working. The report did not specify physical-button initiation,
 unplug/replug, power-cycle behavior, or restoration of initial settings; those
 checks remain separate. Air's real on/off behavior and Remember 48V persistence
 across power cycles are not established by this report.
+
+## Reconnect report and local ALSA restore exception
+
+The owner confirmed the widget showed the device as unavailable after USB
+disconnection and detected it again after reconnecting. They also reported 48V
+was on before unplugging but off afterward. A read-only snapshot showed 48V off
+and persistence on. The system's saved ALSA state contained the same combination;
+the installed hotplug rule and boot service both restored saved mixer state.
+
+A separately authorized local system exception now skips only USB 1235:8211 in
+the hotplug restore rule and boot/shutdown restore/store service. Other cards
+remain selected. Root ownership/modes, rule syntax, effective service commands,
+and dry-run selection were verified. Existing configuration was backed up under
+/var/backups/omarchy-scarlett-restore-20260908-234011. No mixer state was written.
+Post-fix read-only values matched the pre-fix snapshot. A physical reconnect test
+is still needed to confirm that 48V persistence now behaves as intended.

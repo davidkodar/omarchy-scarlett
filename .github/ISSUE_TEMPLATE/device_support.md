@@ -14,8 +14,8 @@ title: ''
 
 ## Requested controls
 
-Which controls do you need? If you have tried ALSA Scarlett Control Panel,
-which are available there? That application is not required to submit a request.
+Which controls do you need? Tell us about the hardware buttons and any settings
+you can access through ALSA. No other control-panel application is required.
 
 ## Current behavior
 

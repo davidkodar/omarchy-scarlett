@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Local system integration: leave Solo 1235:8211 settings to the hardware.
+# This script is not run by the plugin or its normal installer.
+set -euo pipefail
+case "${1:-}" in
+  restore|store) action=$1 ;;
+  *) echo 'Usage: alsa-state-except-scarlett restore|store [--dry-run]' >&2; exit 2 ;;
+esac
+[[ $# == 1 || ( $# == 2 && $2 == --dry-run ) ]] || exit 2
+result=0
+for card_path in /proc/asound/card[0-9]*; do
+  [[ -f "$card_path/id" ]] || continue
+  number=${card_path##*/card}
+  [[ $number =~ ^[0-9]+$ ]] || continue
+  usb_id=''
+  if [[ -r "$card_path/usbid" ]]; then read -r usb_id < "$card_path/usbid"; fi
+  if [[ $usb_id == 1235:8211 ]]; then
+    [[ ${2:-} != --dry-run ]] || echo "Skip Scarlett Solo card $number ($usb_id)"
+    continue
+  fi
+  if [[ ${2:-} == --dry-run ]]; then
+    echo "/usr/bin/alsactl $action $number"
+  else
+    /usr/bin/alsactl "$action" "$number" || result=$?
+  fi
+done
+exit "$result"

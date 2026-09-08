@@ -6,8 +6,8 @@ when you can hear/observe the result and restore your intended settings afterwar
 Record plugin commit, kernel, firmware and the result of each step. The current
 read-only snapshot command is `./bin/scarlett-helper --once`.
 
-1. Note all initial states, including Remember 48V. Open the plugin alongside
-   ALSA Scarlett Control Panel if available; it is optional as a second observer.
+1. Note all initial states, including Remember 48V. Open the plugin and use the interface indicators or a read-only ALSA snapshot
+   as a second observer.
 2. Change Air, Line/Inst and direct monitoring individually. Check the interface
    indicators and the observed sound/other UI where appropriate, then restore.
 3. Test 48V only when appropriate for connected equipment. Verify the current
