@@ -17,7 +17,7 @@ Multiple matching devices at startup are refused rather than chosen arbitrarily.
 - Runtime: `alsa-lib`, `json-c`; Omarchy supplies Quickshell and its QML components.
 - Build: a C compiler, `make`, and `pkgconf` (Arch's `base-devel` provides these).
 - Tests: Python 3.
-- Optional: `alsa-scarlett-gui` from Arch Extra for **Advanced settings**.
+- Optional: `alsa-scarlett-gui` from Arch Extra for **Open ALSA Scarlett Control Panel**.
   This button opens the app or focuses its existing window. If the app is
   absent, the button is hidden; all four native controls still work.
 
@@ -66,7 +66,10 @@ To unlink the development installation after disabling, remove only the
 - Each connection has a generation number; stale requests are rejected.
 - Helper failures disable the UI. Reopening the popup retries the helper.
 - 48V is controlled only through its labeled row, never through the bar icon.
-- No firmware updates or phantom-power persistence controls are exposed.
+- **Device settings** shows model, USB identity and firmware version, plus a
+  **Remember 48V** startup preference. This is separate from the current 48V
+  switch and is never applied automatically by the plugin.
+- Firmware updates and factory resets remain outside the plugin.
 
 The small helper uses `alsa-lib` plus `json-c`, with newline-delimited JSON over
 stdin/stdout. ALSA events drive updates while connected; discovery retries every

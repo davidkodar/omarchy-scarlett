@@ -18,8 +18,10 @@ static const struct control controls[] = {
     {"air", "Line In 1 Air Capture Switch", SND_CTL_ELEM_TYPE_BOOLEAN},
     {"phantom", "Line In 1 Phantom Power Capture Switch", SND_CTL_ELEM_TYPE_BOOLEAN},
     {"inst", "Line In 2 Level Capture Enum", SND_CTL_ELEM_TYPE_ENUMERATED},
-    {"monitor", "Direct Monitor Playback Switch", SND_CTL_ELEM_TYPE_BOOLEAN}
+    {"monitor", "Direct Monitor Playback Switch", SND_CTL_ELEM_TYPE_BOOLEAN},
+    {"phantom_persistence", "Phantom Power Persistence Capture Switch", SND_CTL_ELEM_TYPE_BOOLEAN}
 };
+enum { CONTROL_COUNT = sizeof(controls) / sizeof(controls[0]) };
 static snd_ctl_t *ctl;
 static unsigned generation;
 static char device[128];
@@ -70,6 +72,28 @@ static int read_control(int i, bool *value, bool *writable) {
     *writable = !readonly_mode && snd_ctl_elem_info_is_writable(info);
     return 0;
 }
+/* Firmware is diagnostic metadata, never a writable protocol control. */
+static json_object *device_info(void) {
+    json_object *o = json_object_new_object();
+    if (!ctl) return o;
+    field(o, "model", "Scarlett Solo");
+    field(o, "usb_id", "1235:8211");
+    snd_ctl_elem_info_t *info;
+    snd_ctl_elem_value_t *v;
+    snd_ctl_elem_info_alloca(&info);
+    snd_ctl_elem_value_alloca(&v);
+    snd_ctl_elem_info_set_interface(info, SND_CTL_ELEM_IFACE_CARD);
+    snd_ctl_elem_info_set_name(info, "Firmware Version");
+    if (snd_ctl_elem_info(ctl, info) >= 0 &&
+        snd_ctl_elem_info_get_type(info) == SND_CTL_ELEM_TYPE_INTEGER &&
+        snd_ctl_elem_info_get_count(info) == 1 && snd_ctl_elem_info_is_readable(info)) {
+        snd_ctl_elem_value_set_interface(v, SND_CTL_ELEM_IFACE_CARD);
+        snd_ctl_elem_value_set_name(v, "Firmware Version");
+        if (snd_ctl_elem_read(ctl, v) >= 0)
+            json_object_object_add(o, "firmware", json_object_new_int64(snd_ctl_elem_value_get_integer(v, 0)));
+    }
+    return o;
+}
 static void snapshot(void) {
     json_object *o = json_object_new_object(), *values = json_object_new_object();
     field(o, "type", "state");
@@ -77,7 +101,7 @@ static void snapshot(void) {
     json_object_object_add(o, "generation", json_object_new_int64(generation));
     field(o, "device", ctl ? device : "");
     field(o, "message", ctl ? (readonly_mode ? "Read-only preview" : "") : discovery_error);
-    for (int i = 0; i < 4 && ctl; i++) {
+    for (int i = 0; i < CONTROL_COUNT && ctl; i++) {
         bool value, writable;
         if (read_control(i, &value, &writable) < 0) continue;
         json_object *c = json_object_new_object();
@@ -86,6 +110,7 @@ static void snapshot(void) {
         json_object_object_add(values, controls[i].key, c);
     }
     json_object_object_add(o, "controls", values);
+    json_object_object_add(o, "info", device_info());
     emit(o);
 }
 static void disconnect_device(void) {
@@ -165,8 +190,8 @@ static void request(const char *line) {
         reply(rid, "Invalid set request"); goto done;
     }
     int i;
-    for (i = 0; i < 4; i++) if (!strcmp(json_object_get_string(key), controls[i].key)) break;
-    if (i == 4) { reply(rid, "Unknown control"); goto done; }
+    for (i = 0; i < CONTROL_COUNT; i++) if (!strcmp(json_object_get_string(key), controls[i].key)) break;
+    if (i == CONTROL_COUNT) { reply(rid, "Unknown control"); goto done; }
     if (readonly_mode) { reply(rid, "Read-only mode"); goto done; }
     if (!ctl || json_object_get_int64(gen) != generation) {
         reply(rid, "Device disconnected or changed; refresh and try again"); goto done;

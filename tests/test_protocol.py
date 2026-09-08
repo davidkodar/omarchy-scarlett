@@ -44,6 +44,12 @@ class Protocol(unittest.TestCase):
         rows = run(b'{"id":1,"op":"set","key":"firmware","value":true,"generation":0}\n')
         self.assertEqual(rows[-1]["error"], "Unknown control")
 
+    def test_persistence_is_separate_and_requires_a_device(self):
+        request = b'{"id":1,"op":"set","key":"phantom_persistence","value":true,"generation":0}\n'
+        self.assertIn("disconnected", run(request)[-1]["error"])
+        self.assertEqual(run(request, '--read-only')[-1]["error"], "Read-only mode")
+        self.assertEqual(run(b'')[0]["info"], {})
+
     def test_once_is_readonly_snapshot(self):
         self.assertEqual(len(run(b'', '--once')), 1)
 

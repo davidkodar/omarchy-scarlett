@@ -15,6 +15,7 @@ Panel {
     property int pending: 0
     property bool preview: false
     property bool receivedState: false
+    property bool deviceSettingsOpen: false
     property string helperPath: decodeURIComponent(Qt.resolvedUrl("bin/scarlett-helper").toString().replace(/^file:\/\//, ""))
     implicitWidth: button.implicitWidth
     implicitHeight: button.implicitHeight
@@ -219,10 +220,49 @@ Panel {
                         }
                     }
                     Button {
+                        width: parent.width
+                        text: "Device settings  " + (root.deviceSettingsOpen ? "−" : "+")
+                        leftAlign: true
+                        focusable: true
+                        onClicked: root.deviceSettingsOpen = !root.deviceSettingsOpen
+                        Accessible.name: "Device settings"
+                        Accessible.description: root.deviceSettingsOpen ? "Hide device settings" : "Show device settings"
+                    }
+                    Column {
+                        visible: root.deviceSettingsOpen
+                        width: parent.width
+                        spacing: Style.spacing.md
+                        Text {
+                            width: parent.width
+                            text: root.state.connected
+                                ? (root.state.info?.model || "Scarlett Solo") + " · USB " + (root.state.info?.usb_id || "Unknown")
+                                  + "\nFirmware " + (root.state.info?.firmware ?? "unavailable")
+                                : "Connect your Scarlett to view device information."
+                            textFormat: Text.PlainText
+                            wrapMode: Text.WordWrap
+                            color: Color.muted
+                            font.family: Style.font.family
+                            font.pixelSize: Style.font.caption
+                        }
+                        Toggle {
+                            readonly property var control: root.state.controls.phantom_persistence
+                            width: parent.width
+                            label: "Remember 48V"
+                            description: control
+                                ? "Remember the 48V state when powered on. Does not switch 48V now."
+                                : "Startup preference unavailable"
+                            checked: control ? control.value : false
+                            enabled: !!control && control.writable && !root.pending
+                            opacity: control ? 1 : 0.45
+                            onClicked: root.setControl("phantom_persistence", !checked)
+                            Accessible.name: "Remember 48V state at power-on"
+                        }
+                    }
+                    Button {
                         id: advanced
                         visible: false
                         width: parent.width
-                        text: "Advanced settings  ↗"
+                        text: "Open ALSA Scarlett Control Panel"
                         focusable: true
                         onClicked: { root.close(); advancedLaunch.restart() }
                     }

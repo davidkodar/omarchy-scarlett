@@ -34,3 +34,12 @@ usable development preview, not yet a validated public release.
 The button now closes the popup before using Omarchy's launch-or-focus action
 for ALSA Scarlett Control Panel. The user confirmed the action works. This
 application remains optional; the native controls use ALSA directly.
+
+## Device settings
+
+- Seven hardware-free protocol tests pass, including persistence requests in
+  disconnected/read-only modes and firmware write rejection.
+- Live read-only metadata: firmware 1605, USB 1235:8211; phantom-power
+  persistence is enabled. No persistence or 48V write was performed.
+- Expanded read-only QML preview loaded successfully after using the Qt
+  version's supported accessibility properties.
