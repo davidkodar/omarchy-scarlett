@@ -178,13 +178,15 @@ static void request(const char *line) {
     if (valid && json_object_object_get_ex(o, "id", &id) && json_object_is_type(id, json_type_int))
         rid = json_object_get_int64(id);
     if (!valid || rid <= 0 || !json_object_object_get_ex(o, "op", &op) ||
-        !json_object_is_type(op, json_type_string)) {
+        !json_object_is_type(op, json_type_string) ||
+        (size_t)json_object_get_string_len(op) != strlen(json_object_get_string(op))) {
         reply(rid, "Invalid request");
         goto done;
     }
     if (!strcmp(json_object_get_string(op), "get")) { snapshot(); reply(rid, NULL); goto done; }
     if (strcmp(json_object_get_string(op), "set") ||
         !json_object_object_get_ex(o, "key", &key) || !json_object_is_type(key, json_type_string) ||
+        (size_t)json_object_get_string_len(key) != strlen(json_object_get_string(key)) ||
         !json_object_object_get_ex(o, "value", &val) || !json_object_is_type(val, json_type_boolean) ||
         !json_object_object_get_ex(o, "generation", &gen) || !json_object_is_type(gen, json_type_int)) {
         reply(rid, "Invalid set request"); goto done;

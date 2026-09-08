@@ -13,7 +13,7 @@ test coverage; implemented does not mean fully hardware-validated.
 
 | Priority | Milestone | Status |
 | --- | --- | --- |
-| Next | Separate Device settings view with Back navigation; keep the main popup compact | Planned; currently an expandable section |
+| Complete | Separate Device settings view with Back navigation; keep the main popup compact | Implemented and UI-tested |
 | Next | Reusable device profiles, capability schema and read-only capture tool | Planned |
 | Next | One additional small Scarlett model, with recorded data and hardware validation | Planned; model chosen with contributor input |
 | Later | Broader small Scarlett 3rd/4th generation quick controls | Planned |

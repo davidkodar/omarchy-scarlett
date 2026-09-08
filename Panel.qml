@@ -53,7 +53,9 @@ Panel {
         onExited: {
             root.state = {connected: false, controls: {}, generation: 0}
             root.pending = 0
-            root.error = "Scarlett helper stopped. Check the build, then retry."
+            timeout.stop()
+            startupTimeout.stop()
+            if (!root.error) root.error = "Scarlett helper stopped. Reopen the panel to retry."
         }
     }
     Timer {
@@ -89,12 +91,19 @@ Panel {
         onPressed: b => { if (b === Qt.LeftButton) root.toggle() }
     }
     onOpenedChanged: {
+        if (!opened) deviceSettingsOpen = false
         if (opened && !helper.running) {
             error = ""; receivedState = false; helper.running = true; startupTimeout.restart()
         }
     }
+    onDeviceSettingsOpenChanged: Qt.callLater(function() {
+        if (!root.opened) return
+        if (root.deviceSettingsOpen) settingsBack.forceActiveFocus()
+        else settingsButton.forceActiveFocus()
+    })
     KeyboardPanel {
         id: popup
+        objectName: "scarlettPopup"
         anchorItem: button
         owner: root
         bar: root.bar
@@ -105,17 +114,31 @@ Panel {
         FocusScope {
             id: body
             anchors.fill: parent
-            Keys.onEscapePressed: root.close()
+            Keys.onEscapePressed: {
+                if (root.deviceSettingsOpen) root.deviceSettingsOpen = false
+                else root.close()
+            }
             QQC.ScrollView {
                 anchors.fill: parent
                 contentWidth: availableWidth
                 clip: true
                 Column {
                     id: column
+                    objectName: "panelContent"
                     width: parent.width
                     spacing: Style.spacing.lg
+                    Button {
+                        id: settingsBack
+                        objectName: "settingsBack"
+                        visible: root.deviceSettingsOpen
+                        width: parent.width
+                        text: "← Back"
+                        leftAlign: true
+                        focusable: true
+                        onClicked: root.deviceSettingsOpen = false
+                    }
                     Text {
-                        text: "SCARLETT SOLO"
+                        text: root.deviceSettingsOpen ? "DEVICE SETTINGS" : "SCARLETT SOLO"
                         color: Color.foreground
                         font.family: Style.font.family
                         font.pixelSize: Style.font.title
@@ -123,7 +146,7 @@ Panel {
                     }
                     Text {
                         width: parent.width
-                        text: root.error || root.state.message || "Input controls"
+                        text: root.error || root.state.message || (root.deviceSettingsOpen ? "Startup preference and device information" : "Input controls")
                         textFormat: Text.PlainText
                         wrapMode: Text.WordWrap
                         color: root.error ? Color.urgent : Color.muted
@@ -131,8 +154,10 @@ Panel {
                         font.pixelSize: Style.font.caption
                     }
                     Column {
+                        visible: !root.deviceSettingsOpen
                         width: parent.width
                         spacing: Style.spacing.md
+                        objectName: "quickInputOne"
                         PanelSectionHeader { text: "INPUT 1" }
                         Repeater {
                             model: [
@@ -154,6 +179,7 @@ Panel {
                         }
                     }
                     Column {
+                        visible: !root.deviceSettingsOpen
                         width: parent.width
                         spacing: Style.spacing.md
                         PanelSectionHeader { text: "INPUT 2" }
@@ -189,6 +215,7 @@ Panel {
                         }
                     }
                     Column {
+                        visible: !root.deviceSettingsOpen
                         width: parent.width
                         spacing: Style.spacing.md
                         PanelSectionHeader { text: "MONITORING" }
@@ -205,13 +232,16 @@ Panel {
                         }
                     }
                     Button {
+                        id: settingsButton
+                        objectName: "settingsButton"
+                        visible: !root.deviceSettingsOpen
                         width: parent.width
-                        text: "Device settings  " + (root.deviceSettingsOpen ? "−" : "+")
+                        text: "Device settings  →"
                         leftAlign: true
                         focusable: true
-                        onClicked: root.deviceSettingsOpen = !root.deviceSettingsOpen
+                        onClicked: root.deviceSettingsOpen = true
                         Accessible.name: "Device settings"
-                        Accessible.description: root.deviceSettingsOpen ? "Hide device settings" : "Show device settings"
+                        Accessible.description: "Open startup preferences and device information"
                     }
                     Column {
                         visible: root.deviceSettingsOpen

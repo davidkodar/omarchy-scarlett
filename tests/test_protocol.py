@@ -50,6 +50,13 @@ class Protocol(unittest.TestCase):
         self.assertEqual(run(request, '--read-only')[-1]["error"], "Read-only mode")
         self.assertEqual(run(b'')[0]["info"], {})
 
+    def test_embedded_nul_cannot_alias_commands_or_controls(self):
+        for data in [dict(id=1, op="get\0other"),
+                     dict(id=1, op="set", key="air\0other", value=True, generation=0)]:
+            rows = run((json.dumps(data) + '\n').encode())
+            self.assertFalse(rows[-1]["ok"])
+            self.assertIn("Invalid", rows[-1]["error"])
+
     def test_once_is_readonly_snapshot(self):
         self.assertEqual(len(run(b'', '--once')), 1)
 

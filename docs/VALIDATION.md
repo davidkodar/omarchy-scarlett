@@ -50,3 +50,23 @@ Removed the external control-panel launcher, installation check and launch timer
 The native controls have no dependency on that application. This does not imply
 feature parity: firmware maintenance, configuration files, simulation and other
 interface models remain outside the current plugin.
+
+## Release hardening
+
+- Eight protocol and seven installer/removal tests passed, including rejection
+  of embedded-NUL command/control aliases, missing/replaced Audio widgets,
+  existing-position preservation, build/dependency failures, in-place installs
+  and refusal to touch unrelated checkouts.
+- A clean source-only copy built successfully and passed the same tests and
+  Omarchy's manifest validation.
+- Isolated read-only QML smoke tests passed for separate settings navigation,
+  Back focus, reopen behavior, palette/spacing updates, vertical-bar configuration,
+  missing-helper feedback and recovery. Screenshot exports were visually checked.
+- The new installer ran against the actual development installation and preserved
+  its position. The shell was restarted to apply the updated QML and helper.
+- Physical-button, power-cycle and reconnect qualification are still pending;
+  no hardware setting was changed as part of this hardening pass.
+
+- Atomic rebuild test passed: an intentional compiler failure preserved the
+  existing binary; a subsequent successful rebuild left the original process
+  responsive while replacing its executable on disk.

@@ -1,27 +1,45 @@
-# Release checklist
+# Solo preview release readiness
 
-Repository stays private until the owner explicitly approves public release.
+Repository stays private until the owner explicitly approves publication.
+The first release is scoped to Scarlett Solo USB `1235:8211`, not all Focusrite
+interfaces. See ROADMAP.md for planned expansion.
 
-## Implemented
+## Completed release preparation
 
-- Native Omarchy bar widget and themed panel.
-- ALSA event subscription and reconnect discovery.
-- Four allowlisted controls, type/access validation and write readback.
-- Stale device generation rejection and bounded JSON input.
-- Read-only diagnostic mode; hardware-free protocol tests.
-- Development installation with shell configuration backup.
+- [x] Eight protocol tests and seven installer/removal tests pass.
+- [x] Fresh source-only build and Omarchy manifest validation pass.
+- [x] Installer checks dependencies, compiles locally and validates before configuration changes.
+- [x] Placement works with no standard Audio widget and preserves an existing position.
+- [x] Build failure leaves the installed executable intact; successful builds replace it atomically.
+- [x] Installation/removal refuse unrelated checkouts and preserve source on script uninstall.
+- [x] Device settings is a separate view with Back navigation.
+- [x] Isolated read-only QML checks pass for navigation/focus, a light palette,
+      increased spacing, vertical-bar configuration and missing-helper recovery.
+- [x] Preview images contain only the plugin UI.
+- [x] Marketplace publishing requirements checked; see PUBLISHING.md.
+- [x] README distinguishes implemented scope from the multi-device roadmap.
 
-## Required before public release
+## Hardware checks still requiring participation
 
-- Test real value changes for Air, Inst, direct monitor and 48V deliberately.
-- Test physical buttons and concurrent changes in ALSA Scarlett Control Panel.
-- Test USB unplug/replug while idle, with the popup open, and during a request.
-- Check multiple devices and access-denied behavior.
-- Check theme switching, light/dark themes, large fonts, vertical bars and multiple monitors.
-- Check keyboard-only navigation and screen-reader labels.
-- Check helper failure, missing binary, update/rebuild and disable/uninstall.
-- Decide distribution of the compiled helper (package/build instructions).
-- Add screenshots containing only the plugin, no private desktop content.
-- Verify Omarchy plugin directory submission requirements.
-- Review code, dependency notices, repository history, and private metadata.
-- Obtain explicit owner approval before changing visibility or submitting a listing.
+The user reported successful switching reflected in ALSA Scarlett Control Panel.
+The automated live write check verified Air's unchanged value and stale-request
+rejection. These do not substitute for the remaining checks below.
+
+- [ ] Record each control's real on/off changes and restoration to the intended state.
+- [ ] Physical button changes appear promptly in the plugin.
+- [ ] Unplug/replug while the panel is open disables and restores the controls.
+- [ ] Confirm the 48V startup preference across a deliberate power cycle.
+- [ ] Verify behavior with multiple supported interfaces and access denied.
+- [ ] Complete real multi-monitor and system-theme-switch checks beyond the isolated UI test.
+
+Follow HARDWARE_TESTING.md when audio interruption is convenient. Do not describe
+unchecked items as passed. These are qualification tasks, not known reproduced
+failures. Until they are resolved, this remains a development preview.
+
+## Publication steps
+
+- [ ] Owner approves making the repository public.
+- [ ] Review the final source/history, release notes and submission text.
+- [ ] Submit the public repository for listing with manual setup disclosed.
+
+Do not publish or file the marketplace submission as a side effect of tests.

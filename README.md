@@ -36,39 +36,61 @@ ALSA Scarlett Control Panel is not required and has no launcher in the plugin.
 It remains an optional standalone tool for firmware maintenance and features
 this plugin does not implement.
 
-## Build and install
+## Install and update
 
-While this repository is private, GitHub authentication with repository access
-is required to clone it.
+Omarchy's plugin manager clones the repository but does not compile helpers.
+Run the bundled installer once after cloning; it checks dependencies, builds
+locally, validates the plugin, backs up shell.json, and enables the widget.
+It never downloads binaries or installs system packages.
 
 ```sh
-git clone https://github.com/davidkodar/omarchy-scarlett.git
-cd omarchy-scarlett
-make
-make check
-./bin/scarlett-helper --once
-./scripts/install-dev.sh
+omarchy plugin add https://github.com/davidkodar/omarchy-scarlett.git
+cd ~/.config/omarchy/plugins/davidkodar.scarlett
+./scripts/install.sh
 ```
 
-The development installer links this checkout into the user plugin directory,
-backs up `shell.json`, and enables the widget beside Audio. Keep the checkout
-at the same location. It refuses to replace an unrelated existing installation.
-It does not install system packages or use sudo.
+While private, the repository requires GitHub access. If dependencies are
+missing, the installer stops before changing the shell. On Omarchy, install
+`base-devel`, `alsa-lib` and `json-c` using your package manager, then rerun it.
 
-The helper must be compiled **before** enabling the plugin. Omarchy's normal
-plugin installer only clones files; it does not run builds. After updating the
-source, run `make` and `omarchy-shell shell rescanPlugins`. If the shell still
-shows the previous layout, use `omarchy restart shell` to clear cached QML. Public distribution
-packaging remains a release task.
+Scarlett is placed after the normal `omarchy.audio` volume widget when that
+widget is in the right-hand section. Otherwise it is added to the right-hand
+section. Reinstalling preserves Scarlett's existing position. A standard Audio
+widget is **not** a dependency.
 
-To disable without deleting the source:
+After pulling an update:
+
+```sh
+cd ~/.config/omarchy/plugins/davidkodar.scarlett
+./scripts/install.sh
+omarchy restart shell
+```
+
+The helper is replaced atomically after a successful build, so rebuilding does
+not truncate a running executable. Restarting loads the new helper and clears
+cached QML. No audio settings are restored by the plugin.
+
+For development, clone into any directory and run `./scripts/install.sh` there.
+It links the checkout into the plugin directory and refuses to replace another
+installation. Keep that checkout in place. `install-dev.sh` is a compatibility
+alias for the same installer.
+
+## Disable and remove
+
+To hide Scarlett without deleting anything:
 
 ```sh
 omarchy plugin disable davidkodar.scarlett
 ```
 
-To unlink the development installation after disabling, remove only the
-`~/.config/omarchy/plugins/davidkodar.scarlett` symlink. Do not remove your checkout.
+To undo a development link, run `./scripts/uninstall.sh` from its checkout. This
+backs up shell.json, disables the plugin and removes only the link it owns. It
+retains the source code. For a checkout installed directly inside the plugin
+directory, the script disables the plugin and retains that directory as well.
+
+For complete removal of a plugin-manager installation, use Omarchy's normal
+`omarchy plugin remove davidkodar.scarlett` command after saving any local edits.
+This removes the installed checkout. No ALSA package needs to be uninstalled.
 
 ## Behavior
 
@@ -79,7 +101,7 @@ To unlink the development installation after disabling, remove only the
 - Each connection has a generation number; stale requests are rejected.
 - Helper failures disable the UI. Reopening the popup retries the helper.
 - 48V is controlled only through its labeled row, never through the bar icon.
-- **Device settings** shows model, USB identity and firmware version, plus a
+- **Device settings** opens a separate view with Back navigation. It shows model, USB identity and firmware version, plus a
   **Remember 48V** startup preference. This is separate from the current 48V
   switch and is never applied automatically by the plugin.
 - Firmware updates and factory resets remain outside the plugin.
@@ -90,9 +112,10 @@ stdin/stdout. ALSA events drive updates while connected; discovery retries every
 
 ## Validation
 
-`make check` exercises the real process with hardware access disabled: malformed
-requests, oversized lines, read-only writes, disconnected writes, and recovery
-after bad input. `--once` always opens ALSA read-only.
+`make check` runs eight hardware-free protocol tests and seven installer/removal
+tests, plus an atomic-build test against a running helper. They cover malformed requests, read-only/disconnected writes, recovery
+after bad input, missing/replaced Audio widgets, preservation of placement,
+dependency/build failures and protection of unrelated installations. `--once` always opens ALSA read-only.
 
 The optional live test writes **Air's current value back unchanged** to verify
 write acknowledgement and readback. It also verifies stale-generation rejection.
@@ -101,6 +124,17 @@ It does not write 48V, instrument mode, or direct monitoring:
 ```sh
 python3 tests/live_readback.py
 ```
+
+`python3 tests/run_ui_smoke.py` runs a separate read-only Quickshell instance in
+a live Wayland session. It checks page navigation, keyboard focus, palette and
+spacing updates, vertical-bar settings, and missing-helper recovery. It does not
+change the system theme or write audio settings. Avoid interacting with other
+windows during this brief focus-sensitive test.
+
+Read-only previews of the two native views:
+
+![Quick controls](docs/images/quick-controls.png)
+![Device settings](docs/images/device-settings.png)
 
 See [the release checklist](docs/RELEASE.md) for checks still required before
 publication. Current API usage follows the installed Omarchy shell, whose shared

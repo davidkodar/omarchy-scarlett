@@ -1,3 +1,5 @@
 /bin/scarlett-helper
 __pycache__/
 *.core
+
+/bin/*.new

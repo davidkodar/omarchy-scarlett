@@ -8,8 +8,11 @@ LDLIBS += $(shell pkg-config --libs alsa json-c)
 all: bin/scarlett-helper
 bin/scarlett-helper: src/scarlett-helper.c
 	mkdir -p bin
-	$(CC) $(CPPFLAGS) $(CFLAGS) $< $(LDFLAGS) $(LDLIBS) -o $@
+	$(CC) $(CPPFLAGS) $(CFLAGS) $< $(LDFLAGS) $(LDLIBS) -o $@.new
+	mv -f $@.new $@
 check: all
 	python3 tests/test_protocol.py
+	python3 tests/test_install.py
+	python3 tests/test_build.py
 clean:
 	rm -f bin/scarlett-helper
