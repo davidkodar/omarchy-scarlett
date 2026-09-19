@@ -62,16 +62,28 @@ install another driver, a privileged background service, or an audio filter.
 
 ## Install and update
 
-Omarchy's plugin manager clones the repository but does not compile helpers.
-Run the bundled installer once after cloning; it checks dependencies, builds
-locally, validates the plugin, backs up shell.json, and enables the widget.
-It never downloads binaries or installs system packages.
+### First-time setup — required
+
+Complete both steps before using the controls. Omarchy's plugin manager adds the
+plugin source; the included installer builds the small hardware helper it needs.
+
+**1. Add the plugin.** If prompted to enable it now, choose No until step 2 is
+complete. If you already added it from the marketplace, go straight to step 2.
 
 ```sh
 omarchy plugin add https://github.com/davidkodar/omarchy-scarlett.git
+```
+
+**2. Build the helper and enable the widget.** Open a terminal and run:
+
+```sh
 cd ~/.config/omarchy/plugins/davidkodar.scarlett
 ./scripts/install.sh
 ```
+
+The installer checks dependencies, builds locally, validates the plugin, backs
+up shell.json, and enables the widget. It never downloads binaries or installs
+system packages. You do not need to repeat this setup after each restart.
 
 If dependencies are missing, the installer stops before changing the shell.
 On Omarchy, install
@@ -81,6 +93,8 @@ Scarlett is placed after the normal `omarchy.audio` volume widget when that
 widget is in the right-hand section. Otherwise it is added to the right-hand
 section. Reinstalling preserves Scarlett's existing position. A standard Audio
 widget is **not** a dependency.
+
+### Updating
 
 After pulling an update:
 
@@ -134,7 +148,10 @@ The small helper uses `alsa-lib` plus `json-c`, with newline-delimited JSON over
 stdin/stdout. ALSA events drive updates while connected; discovery retries every
 1.5 seconds only when disconnected. Each bar instance owns its helper process.
 
-## Settings after reconnecting
+## 48V after restart or reconnect — troubleshooting only
+
+This is separate from the required first-time setup above. The plugin installer
+does not change your system's ALSA restore configuration.
 
 The plugin reads the interface's settings when it reconnects. If those settings
 change unexpectedly, a saved system ALSA configuration may be overriding the
