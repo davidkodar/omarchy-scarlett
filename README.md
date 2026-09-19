@@ -27,12 +27,16 @@ control-panel app or additional driver is required.
 I own a **Scarlett Solo (3rd Gen.)**, USB product **`1235:8211`**, and that's the interface I'm
 building and testing with. It's the model this plugin currently supports.
 
-I'd love to bring the same native Omarchy experience to the wider Focusrite
-family—Scarlett, Clarett, and Vocaster. I don't have all those interfaces on my
-desk, so help from people who do would make a real difference. If you own another
-model, you're welcome to share which controls matter to you, provide read-only
-device information, or help test a future build. You don't need to write code
-to contribute.
+**Have another Focusrite Scarlett?** I'd love to support it. Currently, only the
+Scarlett Solo (3rd Gen.) is enabled and tested. Other models need device mappings
+and hardware testing—please [open a device-support request](https://github.com/davidkodar/omarchy-scarlett/issues/new?template=device_support.md)
+to help expand compatibility.
+
+The longer-term goal includes the wider Focusrite family: Scarlett, Clarett,
+and Vocaster. I don't have all those interfaces on my desk, so help from people
+who do would make a real difference. You can share which controls matter to you,
+provide read-only device information, or help test a future build. You don't
+need to write code to contribute.
 
 Support will grow model by model, with a clear distinction between features
 we've implemented and behavior someone has verified on real hardware. The
