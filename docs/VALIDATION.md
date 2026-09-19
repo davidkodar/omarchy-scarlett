@@ -125,3 +125,11 @@ were already complete: Air on/off, physical-button synchronization, and reconnec
 behavior with Remember 48V disabled. These are recorded as owner-confirmed
 hardware results. They do not establish coverage for additional interfaces or
 untested desktop configurations.
+
+## 48V restart guidance — 2026-09-19
+
+Added general startup guidance and a browser link to the project troubleshooting
+guide below Remember 48V in Device settings. No hardware writes or system
+configuration changes were added. The guidance does not claim automatic conflict
+detection. Local manifest validation and both read-only UI smoke scenarios passed;
+the updated Device settings screenshot was visually checked.

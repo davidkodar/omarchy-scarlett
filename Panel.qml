@@ -272,6 +272,26 @@ Panel {
                             onClicked: root.setControl("phantom_persistence", !checked)
                             Accessible.name: "Remember 48V state at power-on"
                         }
+                        Text {
+                            objectName: "phantomPersistenceHelp"
+                            width: parent.width
+                            text: "To keep 48V after power loss, enable Remember 48V and turn on 48V in the main panel. If it changes after a restart or USB reconnect, saved system audio settings may be overriding it. Extra system setup may be needed; see the guide below."
+                            textFormat: Text.PlainText
+                            wrapMode: Text.WordWrap
+                            color: Color.muted
+                            font.family: Style.font.family
+                            font.pixelSize: Style.font.caption
+                        }
+                        Button {
+                            objectName: "phantomPersistenceGuide"
+                            width: parent.width
+                            text: "48V restart help  ↗"
+                            leftAlign: true
+                            focusable: true
+                            onClicked: Qt.openUrlExternally("https://github.com/davidkodar/omarchy-scarlett/blob/main/support/alsa-restore/README.md")
+                            Accessible.name: "Open 48V restart troubleshooting guide"
+                            Accessible.description: "Opens the project guide in your browser"
+                        }
                     }
 
                 }

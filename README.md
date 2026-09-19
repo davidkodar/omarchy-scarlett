@@ -126,7 +126,9 @@ stdin/stdout. ALSA events drive updates while connected; discovery retries every
 The plugin reads the interface's settings when it reconnects. If those settings
 change unexpectedly, a saved system ALSA configuration may be overriding the
 hardware. See [the Scarlett-specific restore investigation and fix](support/alsa-restore/README.md).
-That system adjustment is separate from normal plugin installation.
+The same guide is available through **Device settings → 48V restart help**.
+Extra setup is only needed if a system restore conflict is confirmed. That system
+adjustment is separate from normal plugin installation.
 
 ## Validation
 
