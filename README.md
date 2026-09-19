@@ -1,13 +1,26 @@
 # Scarlett for Omarchy
 
-A small, theme-aware control panel for Focusrite interfaces, right in the
-Omarchy bar. Adjust **Air**, **48V**, **Line / Inst**, and **direct monitoring**
-without leaving your desktop. Less frequent options live in a separate Device
-settings view, keeping everyday controls quick to reach.
+**Your Focusrite controls, one click away in the Omarchy bar.**
 
-The plugin talks directly to the hardware controls exposed by Linux through
-ALSA. It follows the device's reported state and uses Omarchy's own theme and
-interface components. No separate control-panel application is required.
+Scarlett for Omarchy is a compact panel for switching **Air**, **48V phantom
+power**, **Line / Inst**, and **direct monitoring** without opening a separate
+control app. Switch from a microphone to an instrument, change your monitoring,
+or check 48V while staying in the app you're working in.
+
+It follows your Omarchy theme and the device's reported settings. Everyday
+controls stay in the main popup; **Device settings** holds the less frequent
+options, including **Remember 48V** and restart troubleshooting.
+
+**Currently supported: Focusrite Scarlett Solo (3rd Gen.), USB `1235:8211`.**
+Other Scarlett generations, Clarett, and Vocaster are on the roadmap and are not
+yet supported. This is a hardware control panel; it does not replace your normal
+system volume widget or provide an audio mixer or recorder.
+
+**Setup:** one terminal step is required after adding the plugin to compile its
+small helper. See [Install and update](#install-and-update). No separate
+control-panel app or additional driver is required.
+
+![Scarlett quick controls](docs/images/quick-controls.png)
 
 ## Built on my Solo, with room for the family
 

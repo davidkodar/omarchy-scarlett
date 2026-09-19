@@ -17,6 +17,7 @@ Panel {
     property bool receivedState: false
     property bool deviceSettingsOpen: false
     property string helperPath: decodeURIComponent(Qt.resolvedUrl("bin/scarlett-helper").toString().replace(/^file:\/\//, ""))
+    readonly property string setupHelp: "Setup needed. Open a terminal and run:\ncd ~/.config/omarchy/plugins/davidkodar.scarlett && ./scripts/install.sh\nThen reopen this panel."
     implicitWidth: button.implicitWidth
     implicitHeight: button.implicitHeight
 
@@ -55,7 +56,8 @@ Panel {
             root.pending = 0
             timeout.stop()
             startupTimeout.stop()
-            if (!root.error) root.error = "Scarlett helper stopped. Reopen the panel to retry."
+            if (!root.error) root.error = root.receivedState
+                ? "Scarlett helper stopped. Reopen the panel to retry." : root.setupHelp
         }
     }
     Timer {
@@ -64,7 +66,7 @@ Panel {
         running: true
         onTriggered: {
             if (!root.receivedState) {
-                root.error = "Helper unavailable. Run make in the plugin directory, then reopen."
+                root.error = root.setupHelp
                 helper.running = false
             }
         }
@@ -138,7 +140,7 @@ Panel {
                         onClicked: root.deviceSettingsOpen = false
                     }
                     Text {
-                        text: root.deviceSettingsOpen ? "DEVICE SETTINGS" : "SCARLETT SOLO"
+                        text: root.deviceSettingsOpen ? "DEVICE SETTINGS" : "SCARLETT SOLO · 3RD GEN"
                         color: Color.foreground
                         font.family: Style.font.family
                         font.pixelSize: Style.font.title

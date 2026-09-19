@@ -133,3 +133,17 @@ guide below Remember 48V in Device settings. No hardware writes or system
 configuration changes were added. The guidance does not claim automatic conflict
 detection. Local manifest validation and both read-only UI smoke scenarios passed;
 the updated Device settings screenshot was visually checked.
+
+## Listing and setup clarity — 2026-09-19
+
+Prepared 0.1.1 with a descriptive marketplace name and summary, clearer README,
+explicit missing-helper setup instructions, and normal interface screenshots.
+All 16 hardware-free tests, local manifest validation, and both UI scenarios
+passed. Missing-helper coverage checks that the installer command is shown.
+
+The screenshot run used `SCARLETT_CAPTURE_LIVE=1` together with
+`SCARLETT_CAPTURE_DIR` so the helper reports its normal interactive state rather
+than a read-only test caption. The navigation test does not click audio controls;
+no audio values were changed for the screenshots. Ordinary test runs and the
+missing-helper scenario still use read-only mode. Both exported views were
+visually inspected, and the quick-controls image is the root marketplace preview.

@@ -45,7 +45,8 @@ failures. Any release notes should disclose the remaining coverage limits.
 ## Publication steps
 
 - [x] Owner approved making the repository public; visibility changed and verified.
-- [ ] Review the final source/history, release notes and submission text.
-- [ ] Submit the public repository for listing with manual setup disclosed.
+- [x] Reviewed the initial source/history and approved submission text.
+- [x] Submitted as #5777; version 0.1.0 was published September 10, 2026.
+- [ ] Publish and request review of the prepared 0.1.1 presentation/help update.
 
 Do not publish or file the marketplace submission as a side effect of tests.

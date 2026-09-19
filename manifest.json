@@ -1,12 +1,16 @@
 {
   "schemaVersion": 1,
   "id": "davidkodar.scarlett",
-  "name": "Scarlett",
-  "version": "0.1.0",
+  "name": "Scarlett for Omarchy",
+  "version": "0.1.1",
   "author": "davidkodar",
-  "description": "Air, instrument mode, phantom power and direct monitoring for Scarlett Solo (3rd Gen.)",
-  "kinds": ["bar-widget"],
-  "entryPoints": { "barWidget": "Panel.qml" },
+  "description": "A compact Omarchy bar panel for your Focusrite Scarlett Solo (3rd Gen.). Switch Air, 48V, Line/Inst and direct monitoring without opening a separate app.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
   "barWidget": {
     "displayName": "Scarlett",
     "category": "Audio",
