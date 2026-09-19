@@ -59,7 +59,10 @@ ShellRoot {
             id: plugin
             anchors.centerIn: parent
             bar: mockBar
-            preview: true
+            // Capture the real interactive appearance; navigation never clicks audio controls.
+            // Regular smoke tests and missing-helper tests remain read-only.
+            preview: Quickshell.env("SCARLETT_CAPTURE_LIVE") !== "1"
+                     || Quickshell.env("SCARLETT_TEST_MISSING") === "1"
             helperPath: @HELPER_PATH@
             manageIpc: false
         }
@@ -104,7 +107,7 @@ ShellRoot {
                     } else if (phase === 6) {
                         test.check(test.item("scarlettPopup").barPos === "right", "Vertical bar not reflected")
                         if (Quickshell.env("SCARLETT_TEST_MISSING") === "1")
-                            test.check(!plugin.state.connected && plugin.error.length > 0, "Missing helper has no feedback")
+                            test.check(!plugin.state.connected && plugin.error.indexOf("./scripts/install.sh") >= 0, "Missing helper lacks setup instructions")
                         plugin.close()
                         test.check(!plugin.deviceSettingsOpen, "Close did not reset navigation")
                         plugin.open()

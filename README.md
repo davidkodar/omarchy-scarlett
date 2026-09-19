@@ -1,25 +1,42 @@
 # Scarlett for Omarchy
 
-A small, theme-aware control panel for Focusrite interfaces, right in the
-Omarchy bar. Adjust **Air**, **48V**, **Line / Inst**, and **direct monitoring**
-without leaving your desktop. Less frequent options live in a separate Device
-settings view, keeping everyday controls quick to reach.
+**Your Focusrite controls, one click away in the Omarchy bar.**
 
-The plugin talks directly to the hardware controls exposed by Linux through
-ALSA. It follows the device's reported state and uses Omarchy's own theme and
-interface components. No separate control-panel application is required.
+Scarlett for Omarchy is a compact panel for switching **Air**, **48V phantom
+power**, **Line / Inst**, and **direct monitoring** without opening a separate
+control app. Switch from a microphone to an instrument, change your monitoring,
+or check 48V while staying in the app you're working in.
+
+It follows your Omarchy theme and the device's reported settings. Everyday
+controls stay in the main popup; **Device settings** holds the less frequent
+options, including **Remember 48V** and restart troubleshooting.
+
+**Currently supported: Focusrite Scarlett Solo (3rd Gen.), USB `1235:8211`.**
+Other Scarlett generations, Clarett, and Vocaster are on the roadmap and are not
+yet supported. This is a hardware control panel; it does not replace your normal
+system volume widget or provide an audio mixer or recorder.
+
+**Setup:** one terminal step is required after adding the plugin to compile its
+small helper. See [Install and update](#install-and-update). No separate
+control-panel app or additional driver is required.
+
+![Scarlett quick controls](docs/images/quick-controls.png)
 
 ## Built on my Solo, with room for the family
 
 I own a **Scarlett Solo (3rd Gen.)**, USB product **`1235:8211`**, and that's the interface I'm
 building and testing with. It's the model this plugin currently supports.
 
-I'd love to bring the same native Omarchy experience to the wider Focusrite
-family—Scarlett, Clarett, and Vocaster. I don't have all those interfaces on my
-desk, so help from people who do would make a real difference. If you own another
-model, you're welcome to share which controls matter to you, provide read-only
-device information, or help test a future build. You don't need to write code
-to contribute.
+**Have another Focusrite Scarlett?** I'd love to support it. Currently, only the
+Scarlett Solo (3rd Gen.) is enabled and tested. Other models need device mappings
+and hardware testing—please [open a device-support request](https://github.com/davidkodar/omarchy-scarlett/issues/new?template=device_support.md)
+to help expand compatibility.
+
+The longer-term goal includes the wider Focusrite family: Scarlett, Clarett,
+and Vocaster. I don't have all those interfaces on my desk, so help from people
+who do would make a real difference. You can share which controls matter to you,
+provide read-only device information, or help test a future build. You don't
+need to write code to contribute.
 
 Support will grow model by model, with a clear distinction between features
 we've implemented and behavior someone has verified on real hardware. The
@@ -49,16 +66,28 @@ install another driver, a privileged background service, or an audio filter.
 
 ## Install and update
 
-Omarchy's plugin manager clones the repository but does not compile helpers.
-Run the bundled installer once after cloning; it checks dependencies, builds
-locally, validates the plugin, backs up shell.json, and enables the widget.
-It never downloads binaries or installs system packages.
+### First-time setup — required
+
+Complete both steps before using the controls. Omarchy's plugin manager adds the
+plugin source; the included installer builds the small hardware helper it needs.
+
+**1. Add the plugin.** If prompted to enable it now, choose No until step 2 is
+complete. If you already added it from the marketplace, go straight to step 2.
 
 ```sh
 omarchy plugin add https://github.com/davidkodar/omarchy-scarlett.git
+```
+
+**2. Build the helper and enable the widget.** Open a terminal and run:
+
+```sh
 cd ~/.config/omarchy/plugins/davidkodar.scarlett
 ./scripts/install.sh
 ```
+
+The installer checks dependencies, builds locally, validates the plugin, backs
+up shell.json, and enables the widget. It never downloads binaries or installs
+system packages. You do not need to repeat this setup after each restart.
 
 If dependencies are missing, the installer stops before changing the shell.
 On Omarchy, install
@@ -68,6 +97,8 @@ Scarlett is placed after the normal `omarchy.audio` volume widget when that
 widget is in the right-hand section. Otherwise it is added to the right-hand
 section. Reinstalling preserves Scarlett's existing position. A standard Audio
 widget is **not** a dependency.
+
+### Updating
 
 After pulling an update:
 
@@ -121,12 +152,17 @@ The small helper uses `alsa-lib` plus `json-c`, with newline-delimited JSON over
 stdin/stdout. ALSA events drive updates while connected; discovery retries every
 1.5 seconds only when disconnected. Each bar instance owns its helper process.
 
-## Settings after reconnecting
+## 48V after restart or reconnect — troubleshooting only
+
+This is separate from the required first-time setup above. The plugin installer
+does not change your system's ALSA restore configuration.
 
 The plugin reads the interface's settings when it reconnects. If those settings
 change unexpectedly, a saved system ALSA configuration may be overriding the
 hardware. See [the Scarlett-specific restore investigation and fix](support/alsa-restore/README.md).
-That system adjustment is separate from normal plugin installation.
+The same guide is available through **Device settings → 48V restart help**.
+Extra setup is only needed if a system restore conflict is confirmed. That system
+adjustment is separate from normal plugin installation.
 
 ## Validation
 

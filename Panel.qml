@@ -17,6 +17,7 @@ Panel {
     property bool receivedState: false
     property bool deviceSettingsOpen: false
     property string helperPath: decodeURIComponent(Qt.resolvedUrl("bin/scarlett-helper").toString().replace(/^file:\/\//, ""))
+    readonly property string setupHelp: "Setup needed. Open a terminal and run:\ncd ~/.config/omarchy/plugins/davidkodar.scarlett && ./scripts/install.sh\nThen reopen this panel."
     implicitWidth: button.implicitWidth
     implicitHeight: button.implicitHeight
 
@@ -55,7 +56,8 @@ Panel {
             root.pending = 0
             timeout.stop()
             startupTimeout.stop()
-            if (!root.error) root.error = "Scarlett helper stopped. Reopen the panel to retry."
+            if (!root.error) root.error = root.receivedState
+                ? "Scarlett helper stopped. Reopen the panel to retry." : root.setupHelp
         }
     }
     Timer {
@@ -64,7 +66,7 @@ Panel {
         running: true
         onTriggered: {
             if (!root.receivedState) {
-                root.error = "Helper unavailable. Run make in the plugin directory, then reopen."
+                root.error = root.setupHelp
                 helper.running = false
             }
         }
@@ -138,7 +140,7 @@ Panel {
                         onClicked: root.deviceSettingsOpen = false
                     }
                     Text {
-                        text: root.deviceSettingsOpen ? "DEVICE SETTINGS" : "SCARLETT SOLO"
+                        text: root.deviceSettingsOpen ? "DEVICE SETTINGS" : "SCARLETT SOLO · 3RD GEN"
                         color: Color.foreground
                         font.family: Style.font.family
                         font.pixelSize: Style.font.title
@@ -271,6 +273,26 @@ Panel {
                             opacity: control ? 1 : 0.45
                             onClicked: root.setControl("phantom_persistence", !checked)
                             Accessible.name: "Remember 48V state at power-on"
+                        }
+                        Text {
+                            objectName: "phantomPersistenceHelp"
+                            width: parent.width
+                            text: "To keep 48V after power loss, enable Remember 48V and turn on 48V in the main panel. If it changes after a restart or USB reconnect, saved system audio settings may be overriding it. Extra system setup may be needed; see the guide below."
+                            textFormat: Text.PlainText
+                            wrapMode: Text.WordWrap
+                            color: Color.muted
+                            font.family: Style.font.family
+                            font.pixelSize: Style.font.caption
+                        }
+                        Button {
+                            objectName: "phantomPersistenceGuide"
+                            width: parent.width
+                            text: "48V restart help  ↗"
+                            leftAlign: true
+                            focusable: true
+                            onClicked: Qt.openUrlExternally("https://github.com/davidkodar/omarchy-scarlett/blob/main/support/alsa-restore/README.md")
+                            Accessible.name: "Open 48V restart troubleshooting guide"
+                            Accessible.description: "Opens the project guide in your browser"
                         }
                     }
 
